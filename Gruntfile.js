@@ -5,11 +5,23 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
+        uglify: {
+           options: {
+             banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
+               '<%= grunt.template.today("yyyy-mm-dd") %> */'
+           },
+           my_target: {
+             files: {
+               'app/js/react-angular.min.js': ['app/js/react-angular.js']
+             }
+           }
+         },
+
         // Watches for changes in files and runs certain Grunt tasks.
         watch: {
             js: {
-                files: ['app/js/components/*.js','app/js/index.js'],
-                tasks: ['browserify']
+                files: ['app/js/actions/*.js','app/js/components/*.js','app/js/store/*.js','app/js/index.js'],
+                tasks: ['browserify','uglify']
             },
             styles: {
                 files: ['app/styles/less/*.less'],
@@ -21,7 +33,7 @@ module.exports = function(grunt) {
         browserify: {
             dist: {
                 files: {
-                    'app/js/angular-react.js': ['app/js/index.js'],
+                    'app/js/react-angular.js': ['app/js/index.js'],
                 },
                 options: {
                     transform: ['babelify'],
@@ -38,7 +50,7 @@ module.exports = function(grunt) {
                     paths: ["css"]
                 },
                 files: {
-                    "app/styles/styles.css": "app/styles/less/pokechat.less"
+                    "app/styles/styles.css": "app/styles/less/react-angular.less"
                 }
             }
         },
@@ -62,6 +74,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
 
     //custom taks
     grunt.registerTask('default', []);
