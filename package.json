@@ -20,7 +20,7 @@
     "express": "^4.13.3",
     "morgan": "^1.6.1",
     "ngreact": "^0.1.7",
-    "react": "^0.13.3",
+    "react": "^0.14.9",
     "reflux": "^0.2.11"
   },
   "devDependencies": {
